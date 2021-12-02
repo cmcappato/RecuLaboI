@@ -17,129 +17,129 @@ typedef struct{
 /// @return El libro
 eLibro* libro_new();
 
-/// @brief
+/// @brief Agrega un nuevo libro con parámetros
 ///
 /// @param idStr
 /// @param tituloStr
 /// @param autorStr
 /// @param precioStr
 /// @param editorialIdStr
-/// @return
+/// @return Un nuevo libro con todos los parámentros que este tenga
 eLibro* libro_newParametros(char* idStr, char* tituloStr, char* autorStr, char* precioStr, char* editorialIdStr);
 
-/// @brief
+/// @brief Valida el ID
 ///
-/// @param this
-/// @param id
-/// @return
+/// @param this eLibro* Puntero al array de empleados
+/// @param id int id que se validará
+/// @return Devuelve 1 si se seteo correctamente, 0 si no
 int libro_setId(eLibro* this, int id);
 
-/// @brief
+/// @brief Escribe el parámetro del nombre en el argumento anterior
 ///
-/// @param this
-/// @param id
-/// @return
+/// @param this Puntero al array de empleados
+/// @param id int id que se validará
+/// @return Devuelve 1 si se agarró el elemento correctamente, 0 si no
 int libro_getId(eLibro* this, int* id);
 
-/// @brief
+/// @brief Setea el parámetro titulo
 ///
-/// @param this
-/// @param titulo
-/// @return
+/// @param this Puntero al array de empleadosPuntero al array de empleados
+/// @param titulo char* titulo que se validará
+/// @return Devuelve 1 si se seteo correctamente, 0 si no
 int libro_setTitulo(eLibro* this, char* titulo);
 
-/// @brief
+/// @brief Escribe el parámentro titulo
 ///
-/// @param this
-/// @param titulo
-/// @return
+/// @param this Puntero al array de empleados
+/// @param titulo char* titulo que se validará
+/// @return Devuelve 1 si se agarró el elemento correctamente, 0 si no
 int libro_getTitulo(eLibro* this, char* titulo);
 
-/// @brief
+/// @brief Setea el parámetro autor
 ///
-/// @param this
+/// @param this Puntero al array de empleados
 /// @param autor
-/// @return
+/// @return Devuelve 1 si se seteo correctamente, 0 si no
 int libro_setAutor(eLibro* this, char* autor);
 
-/// @brief
+/// @brief Escribe el parámentro autor
 ///
-/// @param this
+/// @param this Puntero al array de libros
 /// @param autor
-/// @return
+/// @return Devuelve 1 si se agarró el elemento correctamente, 0 si no
 int libro_getAutor(eLibro* this, char* autor);
 
-/// @brief
+/// @brief Setea el parámetro precio
 ///
-/// @param this
+/// @param this Puntero al array de libros
 /// @param precio
-/// @return
+/// @return Devuelve 1 si se seteo correctamente, 0 si no
 int libro_setPrecio(eLibro* this, float precio);
 
-/// @brief
+/// @brief Escribe el parámentro precio
 ///
-/// @param this
+/// @param this Puntero al array de libros
 /// @param precio
-/// @return
+/// @return Devuelve 1 si se agarró el elemento correctamente, 0 si no
 int libro_getPrecio(eLibro* this, float* precio);
 
-/// @brief
+/// @brief Setea el parámetro editorialId
 ///
-/// @param this
+/// @param this Puntero al array de libros
 /// @param editorialId
-/// @return
+/// @return Devuelve 1 si se seteo correctamente, 0 si no
 int libro_setEditorialId(eLibro* this, char* editorialId);
 
-/// @brief
+/// @brief Escribe el parámentro editorialId
 ///
-/// @param this
+/// @param this Puntero al array de libros
 /// @param editorialId
-/// @return
+/// @return Devuelve 1 si se agarró el elemento correctamente, 0 si no
 int libro_getEditorialId(eLibro* this, char* editorialId);
 
-/// @brief
+/// @brief Lista todos los libros
 ///
-/// @param pArrayListaLibros
-/// @return
+/// @param pArrayListaLibros La lista de libros
+/// @return Devuelve 1 si se listó correctamente, 0 si no
 int libro_listarLibros(LinkedList* pArrayListaLibros);
 
-/// @brief
+/// @brief Realiza descuento del 20% a libros de editorial Planeta cuyo precio sea igual o mayor a 300, o 10% a libros de editorial Siglo XXI Editores cuyo precio sea igual o menor que 200
 ///
-/// @param pArrayListaLibros
-/// @return
+/// @param pArrayListaLibros La lista de libros
+/// @return Devuelve 1 si se realizó el descuento correctamente, 0 si no
 int libro_descuentoPlanetaSigloXXI(LinkedList* pArrayListaLibros);
 
-/// @brief
+/// @brief Carga los datos de los libros desde el archivo data.csv (modo texto).
 ///
-/// @param path
+/// @param path La ruta del archivo
 /// @param pArrayListaLibros
-/// @return
+/// @return La cantidad de libros que se agregaron a la lista
 int libro_loadFromText(char* path, LinkedList* pArrayListaLibros);
 
-/// @brief
+/// @brief Guarda los elementos de la lista en el archivo mapeados.csv
 ///
 /// @param path
 /// @param pArrayListaLibros
-/// @return
+/// @return Devuelve 1 si se guardó correctamente, 0 si no
 int libro_saveToText(char* path, LinkedList* pArrayListaLibros);
 
-/// @brief
+/// @brief Lista solo los libros que sean de la editorial Minotauro
 ///
 /// @param pArrayListaLibros
-/// @return
+/// @return Devuelve 1 si se listó correctamente, 0 si no
 int libro_listaMinotauro(LinkedList* pArrayListaLibros);
 
-/// @brief
+/// @brief Guarda los libros de la editorial minotauro en el archivo minotauroLibros.csv
 ///
 /// @param path
 /// @param pArrayListaLibros
-/// @return
+/// @return Devuelve 1 si se guardó correctamente, 0 si no
 int libro_saveMinotauroToText(char* path, LinkedList* pArrayListaLibros);
 
-/// @brief
+/// @brief Ordena los libros por autor de manera ascendente
 ///
 /// @param pArrayListaLibros
-/// @return
+/// @return Devuelve 1 si se ordenó correctamente, 0 si no
 int libro_ordenarPorAutor(LinkedList* pArrayListaLibros);
 
 /// @brief Compara dos autores

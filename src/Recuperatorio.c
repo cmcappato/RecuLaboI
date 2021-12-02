@@ -17,12 +17,13 @@ int main(void) {
 	setbuf(stdout, NULL);
 
 	int opcion;
+	int flagCargarArchivo = 0, flagOrdenarPorAutor = 0, flagDescuento = 0;
 	LinkedList* listaLibros = ll_newLinkedList();
 
 	do{
 	    printf("-----------------Menu de opciones----------------\n");
 	    printf("1. Cargar los datos de los libros desde el archivo \"data.csv\".\n");
-	    printf("2. Ordenar los libros por autor.\n");
+	    printf("2. Ordenar los libros por autor (ascendente).\n");
 	    printf("3. Mostrar los libros.\n");
 	    printf("4. Realizar descuentos.\n");
 	    printf("5. Generar archivo \"mapeado.csv\".\n");
@@ -41,17 +42,40 @@ int main(void) {
 	    switch(opcion)
 		{
 			case 1:
-				libro_loadFromText("data/data.csv", listaLibros);
+				if(flagCargarArchivo == 0)
+				{
+					libro_loadFromText("data/data.csv", listaLibros);
+					flagCargarArchivo = 1;
+				}
+				else
+				{
+					printf("Ya se realizó la carga.\n");
+				}
 				break;
 			case 2:
-
-				libro_ordenarPorAutor(listaLibros);
+				if(flagOrdenarPorAutor == 0)
+				{
+					libro_ordenarPorAutor(listaLibros);
+					flagOrdenarPorAutor = 1;
+				}
+				else
+				{
+					printf("Ya se realizó el ordenamiento. \n");
+				}
 				break;
 			case 3:
 				libro_listarLibros(listaLibros);
 				break;
 			case 4:
-				libro_descuentoPlanetaSigloXXI(listaLibros);
+				if(flagDescuento == 0)
+				{
+					libro_descuentoPlanetaSigloXXI(listaLibros);
+					flagDescuento = 1;
+				}
+				else
+				{
+					printf("Ya se realizaron los descuentos. \n");
+				}
 				break;
 			case 5:
 				libro_saveToText("data/mapeados.csv", listaLibros);

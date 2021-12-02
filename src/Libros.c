@@ -320,7 +320,6 @@ int libro_listaMinotauro(LinkedList* pArrayListaLibros)
 	int retorno = 0;
 	LinkedList* minotauro;
 
-
 	if(pArrayListaLibros != NULL)
 	{
 		minotauro = ll_filter(pArrayListaLibros, libro_soloMinotauro);
@@ -338,8 +337,6 @@ int libro_listaMinotauro(LinkedList* pArrayListaLibros)
 
 	return retorno;
 }
-
-
 
 int libro_saveMinotauroToText(char* path, LinkedList* pArrayListaLibros)
 {
@@ -380,7 +377,6 @@ int libro_saveMinotauroToText(char* path, LinkedList* pArrayListaLibros)
 	return retorno;
 }
 
-
 int libro_ordenarPorAutor(LinkedList* pArrayListaLibros)
 {
 	int retorno = 0;
@@ -409,7 +405,7 @@ int ordenarPorAutor(void* bookA, void* bookB)
 	{
 		libroA = (eLibro*) bookA;
 		libroB = (eLibro*) bookB;
-		retorno = strcmp(libroA->autor, libroB->autor);
+		retorno = stricmp(libroA->autor, libroB->autor);
 	}
 
 	return retorno;
