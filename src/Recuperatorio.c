@@ -29,12 +29,6 @@ int main(void) {
 	    printf("5. Generar archivo \"mapeado.csv\".\n");
 	    printf("6. Filtrar solo libros que sean de Editorial Minotauro.\n");
 	    printf("7. Generar archivo \"minotauroLibros.csv\".\n");
-	    /*
-	    printf(". \n");
-	    printf(". \n");
-	    printf(". \n");
-	    printf(". \n");
-	    */
 	    printf("10. Salir.\n");
 	    printf("Elija una opcion: ");
 	    scanf("%d", &opcion);
@@ -60,7 +54,7 @@ int main(void) {
 				}
 				else
 				{
-					printf("Ya se realizó el ordenamiento. \n");
+					printf("Ya se realizó el ordenamiento.\n");
 				}
 				break;
 			case 3:
@@ -74,7 +68,7 @@ int main(void) {
 				}
 				else
 				{
-					printf("Ya se realizaron los descuentos. \n");
+					printf("Ya se realizaron los descuentos.\n");
 				}
 				break;
 			case 5:
@@ -85,6 +79,12 @@ int main(void) {
 				break;
 			case 7:
 				libro_saveMinotauroToText("data/minotauroLibros.csv", listaLibros);
+				break;
+			case 10:
+				printf("Gracias por utilizar el programa.\n");
+				break;
+			default:
+				printf("Opción incorrecta.\n");
 				break;
 		}
 	}while(opcion != 10);
