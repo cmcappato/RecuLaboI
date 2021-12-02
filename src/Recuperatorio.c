@@ -21,12 +21,12 @@ int main(void) {
 
 	do{
 	    printf("-----------------Menu de opciones----------------\n");
-	    printf("1. Cargar los datos de los libros desde el archivo data.csv.\n");
-	    printf("2. Ordenar los libros por autor\n");
-	    printf("3. Mostrar los libros\n");
+	    printf("1. Cargar los datos de los libros desde el archivo \"data.csv\".\n");
+	    printf("2. Ordenar los libros por autor.n");
+	    printf("3. Mostrar los libros.\n");
+	    printf("4. Realizar descuentos.\n");
+	    printf("5. Generar archivo \"mapeado.csv\".\n");
 	    /*
-	    printf(". \n");
-	    printf(". \n");
 	    printf(". \n");
 	    printf(". \n");
 	    printf(". \n");
@@ -47,6 +47,12 @@ int main(void) {
 				break;
 			case 3:
 				libro_listarLibros(listaLibros);
+				break;
+			case 4:
+				libro_descuentoPlanetaSigloXXI(listaLibros);
+				break;
+			case 5:
+				libro_saveToText("data/mapeados.csv", listaLibros);
 				break;
 		}
 	}while(opcion != 10);

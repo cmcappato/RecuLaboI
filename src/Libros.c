@@ -18,7 +18,7 @@ eLibro* libro_newParametros(char* idStr, char* tituloStr, char* autorStr, char* 
 	if(auxLibro != NULL)
 	{
 		int id = atoi(idStr);
-		int precio = atoi(precioStr);
+		float precio = atof(precioStr);
 
 		libro_setId(auxLibro, id);
 		libro_setTitulo(auxLibro, tituloStr);
@@ -109,7 +109,7 @@ int libro_getAutor(eLibro* this, char* autor)
     return retorno;
 }
 
-int libro_setPrecio(eLibro* this, int precio)
+int libro_setPrecio(eLibro* this, float precio)
 {
     int retorno = 0;
 
@@ -124,7 +124,7 @@ int libro_setPrecio(eLibro* this, int precio)
     return retorno;
 }
 
-int libro_getPrecio(eLibro* this, int* precio)
+int libro_getPrecio(eLibro* this, float* precio)
 {
     int retorno = 0;
 
@@ -168,7 +168,7 @@ static void libro_listarUnLibro(void* pArrayListaLibros)
 	int auxId;
 	char auxTitulo[TITULO_LEN];
 	char auxAutor[AUTOR_LEN];
-	int auxPrecio;
+	float auxPrecio;
 	char auxIdEditorial[EDITORIAL_LEN];
 
 	if(pArrayListaLibros != NULL)
@@ -178,10 +178,9 @@ static void libro_listarUnLibro(void* pArrayListaLibros)
 		libro_getAutor(libroAux, auxAutor);
 		libro_getPrecio(libroAux, &auxPrecio);
 		libro_getEditorialId(libroAux, auxIdEditorial);
-		printf("%d   %s \t\t %s \t %d \t %s\n", auxId, auxTitulo, auxAutor, auxPrecio, auxIdEditorial);
+		printf("%d   %s \t\t %s \t %.2f \t %s\n", auxId, auxTitulo, auxAutor, auxPrecio, auxIdEditorial);
 	}
 }
-
 
 int libro_listarLibros(LinkedList* pArrayListaLibros)
 {
@@ -200,7 +199,47 @@ int libro_listarLibros(LinkedList* pArrayListaLibros)
 	return retorno;
 }
 
+static void libro_descuentos(void* pArrayListaLibros)
+{
+	eLibro* libroAux = (eLibro*)pArrayListaLibros;
+	float nuevoPrecio;
+	float auxPrecio;
+	char auxIdEditorial[EDITORIAL_LEN];
+	char edPlaneta[EDITORIAL_LEN] = "PLANETA";
+	char edSigloXXI[EDITORIAL_LEN] =  "SIGLO XXI EDITORES";
 
+	if(pArrayListaLibros != NULL)
+	{
+		libro_getPrecio(libroAux, &auxPrecio);
+		libro_getEditorialId(libroAux, auxIdEditorial);
+
+		if(auxPrecio >= 300 && stricmp(auxIdEditorial, edPlaneta) == 0)
+		{
+			nuevoPrecio = auxPrecio * 0.80;
+			libro_setPrecio(libroAux, nuevoPrecio);
+		}
+
+		if (auxPrecio <= 200 && stricmp(auxIdEditorial, edSigloXXI) == 0)
+		{
+			nuevoPrecio = auxPrecio * 0.90;
+			libro_setPrecio(libroAux, nuevoPrecio);
+		}
+	}
+
+}
+
+int libro_descuentoPlanetaSigloXXI(LinkedList* pArrayListaLibros)
+{
+	int retorno = 0;
+
+	if(pArrayListaLibros != NULL)
+	{
+		retorno = ll_map(pArrayListaLibros, libro_descuentos);
+		printf("Descuentos realizados correctamente\n");
+	}
+
+	return retorno;
+}
 
 int libro_loadFromText(char* path, LinkedList* pArrayListaLibros)
 {
@@ -216,7 +255,37 @@ int libro_loadFromText(char* path, LinkedList* pArrayListaLibros)
     {
         printf("El archivo no se pudo cargar.\n");
     }
+
     return retorno;
+}
+
+int libro_saveToText(char* path, LinkedList* pArrayListaLibros)
+{
+	int retorno = 0;
+	int largo = ll_len(pArrayListaLibros);
+	eLibro* libroAux;
+	FILE* pFile = fopen(path, "w");
+
+	if(pFile == NULL)
+	{
+		printf("Hubo un error y no se pudo guardar el archivo\n");
+	}
+
+	fprintf(pFile, "id,titulo,autor,precio,editorialId\n");
+
+	if(pArrayListaLibros != NULL)
+	{
+		for(int i = 0; i < largo; i++)
+		{
+			libroAux = (eLibro*)ll_get(pArrayListaLibros, i);
+			fprintf(pFile, "%d,%s,%s,%.2f,%s\n", libroAux->id, libroAux->titulo, libroAux->autor, libroAux->precio, libroAux->editorialId);
+		}
+		printf("Se guardó el archivo con éxito");
+		retorno = 1;
+	}
+
+	fclose(pFile);
+	return retorno;
 }
 
 int libro_ordenarPorAutor(LinkedList* pArrayListaLibros)

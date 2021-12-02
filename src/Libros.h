@@ -8,7 +8,7 @@ typedef struct{
 	int id;
 	char titulo[TITULO_LEN];
 	char autor[AUTOR_LEN];
-	int precio;
+	float precio;
 	char editorialId[EDITORIAL_LEN];
 }eLibro;
 
@@ -74,14 +74,14 @@ int libro_getAutor(eLibro* this, char* autor);
 /// @param this
 /// @param precio
 /// @return
-int libro_setPrecio(eLibro* this, int precio);
+int libro_setPrecio(eLibro* this, float precio);
 
 /// @brief
 ///
 /// @param this
 /// @param precio
 /// @return
-int libro_getPrecio(eLibro* this, int* precio);
+int libro_getPrecio(eLibro* this, float* precio);
 
 /// @brief
 ///
@@ -105,10 +105,23 @@ int libro_listarLibros(LinkedList* pArrayListaLibros);
 
 /// @brief
 ///
+/// @param pArrayListaLibros
+/// @return
+int libro_descuentoPlanetaSigloXXI(LinkedList* pArrayListaLibros);
+
+/// @brief
+///
 /// @param path
 /// @param pArrayListaLibros
 /// @return
 int libro_loadFromText(char* path, LinkedList* pArrayListaLibros);
+
+/// @brief
+///
+/// @param path
+/// @param pArrayListaLibros
+/// @return
+int libro_saveToText(char* path, LinkedList* pArrayListaLibros);
 
 /// @brief
 ///
