@@ -127,6 +127,19 @@ int libro_saveToText(char* path, LinkedList* pArrayListaLibros);
 ///
 /// @param pArrayListaLibros
 /// @return
+int libro_listaMinotauro(LinkedList* pArrayListaLibros);
+
+/// @brief
+///
+/// @param path
+/// @param pArrayListaLibros
+/// @return
+int libro_saveMinotauroToText(char* path, LinkedList* pArrayListaLibros);
+
+/// @brief
+///
+/// @param pArrayListaLibros
+/// @return
 int libro_ordenarPorAutor(LinkedList* pArrayListaLibros);
 
 /// @brief Compara dos autores

@@ -206,7 +206,7 @@ static void libro_descuentos(void* pArrayListaLibros)
 	float auxPrecio;
 	char auxIdEditorial[EDITORIAL_LEN];
 	char edPlaneta[EDITORIAL_LEN] = "PLANETA";
-	char edSigloXXI[EDITORIAL_LEN] =  "SIGLO XXI EDITORES";
+	char edSigloXXI[EDITORIAL_LEN] = "SIGLO XXI EDITORES";
 
 	if(pArrayListaLibros != NULL)
 	{
@@ -225,7 +225,6 @@ static void libro_descuentos(void* pArrayListaLibros)
 			libro_setPrecio(libroAux, nuevoPrecio);
 		}
 	}
-
 }
 
 int libro_descuentoPlanetaSigloXXI(LinkedList* pArrayListaLibros)
@@ -271,7 +270,7 @@ int libro_saveToText(char* path, LinkedList* pArrayListaLibros)
 		printf("Hubo un error y no se pudo guardar el archivo\n");
 	}
 
-	fprintf(pFile, "id,titulo,autor,precio,editorialId\n");
+	fprintf(pFile, "id,titulo,autor,precio,editorialId\n"); //Será la cabecera del archivo
 
 	if(pArrayListaLibros != NULL)
 	{
@@ -280,13 +279,107 @@ int libro_saveToText(char* path, LinkedList* pArrayListaLibros)
 			libroAux = (eLibro*)ll_get(pArrayListaLibros, i);
 			fprintf(pFile, "%d,%s,%s,%.2f,%s\n", libroAux->id, libroAux->titulo, libroAux->autor, libroAux->precio, libroAux->editorialId);
 		}
-		printf("Se guardó el archivo con éxito");
+		printf("Se guardó el archivo con éxito\n");
 		retorno = 1;
 	}
 
 	fclose(pFile);
 	return retorno;
 }
+
+static int libro_soloMinotauro(void* pArrayListaLibros)
+{
+	eLibro* libroAux = (eLibro*)pArrayListaLibros;
+	int retorno = 0;
+	int auxId;
+	char auxTitulo[TITULO_LEN];
+	char auxAutor[AUTOR_LEN];
+	float auxPrecio;
+	char auxIdEditorial[EDITORIAL_LEN];
+	char edMinotauro[EDITORIAL_LEN] = "MINOTAURO";
+
+	if(pArrayListaLibros != NULL)
+	{
+		libro_getId(libroAux, &auxId);
+		libro_getTitulo(libroAux, auxTitulo);
+		libro_getAutor(libroAux, auxAutor);
+		libro_getPrecio(libroAux, &auxPrecio);
+		libro_getEditorialId(libroAux, auxIdEditorial);
+
+		if(stricmp(auxIdEditorial, edMinotauro) == 0)
+		{
+			printf("%d   %s \t\t %s \t %.2f \t %s\n", auxId, auxTitulo, auxAutor, auxPrecio, auxIdEditorial);
+			retorno = 1;
+		}
+	}
+	return retorno;
+}
+
+int libro_listaMinotauro(LinkedList* pArrayListaLibros)
+{
+	int retorno = 0;
+	LinkedList* minotauro;
+
+
+	if(pArrayListaLibros != NULL)
+	{
+		minotauro = ll_filter(pArrayListaLibros, libro_soloMinotauro);
+
+		if (minotauro != NULL && libro_saveMinotauroToText("data/minotauroLibros.csv", minotauro) == 1)
+		{
+			retorno = 1;
+		}
+
+	}
+	else
+	{
+		printf("No hay libros para mostrar.\n");
+	}
+
+	return retorno;
+}
+
+
+
+int libro_saveMinotauroToText(char* path, LinkedList* pArrayListaLibros)
+{
+	int retorno = 0;
+	int largo = ll_len(pArrayListaLibros);
+	char auxIdEditorial[EDITORIAL_LEN];
+	char edMinotauro[EDITORIAL_LEN] = "MINOTAURO";
+	eLibro* libroAux;
+	FILE* pFile = fopen(path, "w");
+
+	if(pFile == NULL)
+	{
+		printf("Hubo un error y no se pudo guardar el archivo\n");
+	}
+
+	fprintf(pFile, "id,titulo,autor,precio,editorialId\n"); //Será la cabecera del archivo
+
+	if(pArrayListaLibros != NULL)
+	{
+		for(int i = 0; i < largo; i++)
+		{
+			libroAux = (eLibro*)ll_get(pArrayListaLibros, i);
+			libro_getEditorialId(libroAux, auxIdEditorial);
+
+			if (stricmp(auxIdEditorial, edMinotauro) == 0)
+			{
+				fprintf(pFile, "%d,%s,%s,%.2f,%s\n", libroAux->id, libroAux->titulo, libroAux->autor, libroAux->precio, libroAux->editorialId);
+			}
+		}
+		printf("Se guardó el archivo con éxito.\n");
+		retorno = 1;
+	}
+
+	fclose(pFile);
+	return retorno;
+
+
+	return retorno;
+}
+
 
 int libro_ordenarPorAutor(LinkedList* pArrayListaLibros)
 {
